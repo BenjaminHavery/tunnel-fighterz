@@ -3,7 +3,7 @@ import { useEffect, useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three';
 
-const Foes = ({ num = 5000, spawnDistance = 60, space }) => {
+const Foes = ({ num = 500, space }) => {
   const foes = useRef();
 
   const randomiseOrigin = (position) => {
@@ -57,7 +57,7 @@ const Foes = ({ num = 5000, spawnDistance = 60, space }) => {
 
   return (
     <instancedMesh ref={foes} position={[0, 0, 0]} args={[null, null, num]}>
-      <sphereGeometry args={[0.5, 16, 16]} />
+      <sphereGeometry args={[0.5, 10, 10]} />
       <meshStandardMaterial
         attach="material"
         color='#fc4503'

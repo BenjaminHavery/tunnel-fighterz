@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber'
 import Scene from './Scene'
 
 const space = {
-  size: 7,
+  size: 5,
   scale: 1,
   dis: 50,
   cam: 5,
