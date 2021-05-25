@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react'
+import { useEffect, useRef, useMemo, Suspense } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three';
@@ -7,9 +7,6 @@ import * as THREE from 'three';
 
 const Player = ({ cPos }) => {
   const player = useRef();
-  const { nodes } = useGLTF('/glb/ship-1.glb');
-  
-  console.log(nodes);
 
   const { cVec } = useMemo(() => {
     const cVec = new THREE.Vector3();
@@ -27,21 +24,33 @@ const Player = ({ cPos }) => {
 
   return (
     <mesh ref={player} position={[0, 0, 0]} rotation={[0, Math.PI, 0]} scale={[2, 2, 2]}>
-      <pointLight intensity={1} position={[0, 0, -0.5]} />
-      {/* <sphereGeometry args={[0.5, 16, 16]} /> */}
-      <bufferGeometry 
-        attach="geometry"
-        {...nodes.mesh_0.geometry}
-        // args={[0.5, 16, 16]}
-      />
+      <Suspense 
+        fallback={<sphereGeometry args={[0.25, 10, 10]} />}
+        >
+        <PlayerModel/>
+      </Suspense>
       <meshStandardMaterial
         attach="material"
-        color='#b4d4db'
+        color='#03a1fc'
         roughness={0.3}
         metalness={0.8}
       />
+      <pointLight intensity={1} position={[0, 0, -0.5]} />
     </mesh>
   )
 }
+
+const PlayerModel = () => {
+  const { nodes } = useGLTF('/glb/ship.glb');
+
+  return (
+    <bufferGeometry
+      attach="geometry"
+      {...nodes.mesh_0.geometry}
+    />
+  )
+}
+
+
 
 export default Player

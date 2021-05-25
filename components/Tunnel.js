@@ -31,7 +31,7 @@ const Tunnel = ({ segs = 100, size = 2.5, space }) => {
       <torusGeometry args={[Math.sqrt((size**2)*2) + 0.5, 0.5, 4, 4]} />
       <meshStandardMaterial
         attach="material"
-        color='#03a1fc'
+        color='#b4d4db'
         roughness={0.5}
         metalness={0.5}
       />
