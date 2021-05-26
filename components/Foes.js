@@ -3,7 +3,7 @@ import { useEffect, useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three';
 
-const Foes = ({ num = 500, space }) => {
+const Foes = ({ num = 500, space, onDest = () => null }) => {
   const foes = useRef();
 
   const randomiseOrigin = (position) => {
@@ -35,6 +35,14 @@ const Foes = ({ num = 500, space }) => {
       position.setFromMatrixPosition(transform);
       position.setZ(position.z + 0.1);
       transform.setPosition(position)
+
+      if (Math.abs(position.z) < 0.05) {
+        onDest({
+          index: i,
+          x: position.x,
+          y: position.y,
+        })
+      }
 
       if (position.z >= 0) {
         scale.setFromMatrixScale(transform);

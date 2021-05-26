@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useKeyPress, useKeyboardActions } from './util'
+import { useKeyboardActions } from './util'
 
 import { Canvas } from '@react-three/fiber'
 import Scene from './Scene'
@@ -34,7 +34,7 @@ const Game = () => {
   return (
     <div className='wrapper'>
 
-      <Canvas className='canvas' camera={{ position: [0, space.size/4, space.cam]}} onKeyDown={(e) => handleKeypress(e)}>
+      <Canvas className='canvas' camera={{ position: [0, space.size/4, space.cam]}}>
         <Scene {...{ space, cPos }}/>
       </Canvas>
       
