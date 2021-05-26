@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useKeyboardActions } from './util'
+import { useKeyboardActions, useTouchActions } from './util'
 
 import { Canvas } from '@react-three/fiber'
 import Scene from './Scene'
@@ -30,9 +30,18 @@ const Game = () => {
     ArrowDown: () => updateCPos({ ...cPos, y: cPos.y - 1 }),
     ArrowLeft: () => updateCPos({ ...cPos, x: cPos.x - 1 }),
   });
+  
+  useTouchActions({
+    SwipeUp: () => updateCPos({ ...cPos, y: cPos.y + 1 }),
+    SwipeRight: () => updateCPos({ ...cPos, x: cPos.x + 1 }),
+    SwipeDown: () => updateCPos({ ...cPos, y: cPos.y - 1 }),
+    SwipeLeft: () => updateCPos({ ...cPos, x: cPos.x - 1 }),
+  });
 
   return (
-    <div className='wrapper'>
+    <div className='wrapper'
+    // onTouchMove={(e) => console.log(e)}
+    >
 
       <Canvas className='canvas' camera={{ position: [0, space.size/4, space.cam]}}>
         <Scene {...{ space, cPos }}/>

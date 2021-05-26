@@ -25,7 +25,7 @@ const Scene = ({ space, cPos }) => {
       <fog attach="fog" args={['#ffffff', space.dis/4, space.dis]} />
       
       {/* <axesHelper args={[1.5, 1.5, 2]} /> */}
-      <OrbitControls />
+      {/* <OrbitControls /> */}
 
 
       <Player {...{ cPos }}/>
