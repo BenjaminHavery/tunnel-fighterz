@@ -3,7 +3,7 @@ import { useEffect, useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three';
 
-const Tunnel = ({ segs = 100, size = 2.5, space }) => {
+const Tunnel = ({ segs = 100, space }) => {
   const rings = useRef();
   
   const { vec, transform, positions } = useMemo(() => {
@@ -28,7 +28,7 @@ const Tunnel = ({ segs = 100, size = 2.5, space }) => {
 
   return (
     <instancedMesh ref={rings} position={[0, 0, 0]} rotation={[0, 0, Math.PI/4]} args={[null, null, segs]}>
-      <torusGeometry args={[Math.sqrt((size**2)*2) + 0.5, 0.5, 4, 4]} />
+      <torusGeometry args={[Math.sqrt(((space.size/2)**2)*2) + 0.5, 0.5, 4, 4]} />
       <meshStandardMaterial
         attach="material"
         color='#b4d4db'

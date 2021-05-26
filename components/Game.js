@@ -11,16 +11,24 @@ const space = {
   cam: 5,
 };
 space.run = space.dis + space.cam;
+space.cMax = (space.size - 1)/2;
 
 const Game = () => {
 
-  const [cPos, setCPos] = useState({ x: 0, y: 0 })
-  
+  const [cPos, setCPos] = useState({ x: 0, y: 0 }),
+        updateCPos = (newPos) => {
+          if (
+            Math.abs(newPos.x) <= space.cMax &&
+            Math.abs(newPos.y) <= space.cMax &&
+            newPos.x + newPos.y !== cPos.x + cPos.y
+          ) setCPos(newPos);
+        };
+
   useKeyboardActions({
-    ArrowUp: () => setCPos({ ...cPos, y: cPos.y + 1 }),
-    ArrowRight: () => setCPos({ ...cPos, x: cPos.x + 1 }),
-    ArrowDown: () => setCPos({ ...cPos, y: cPos.y - 1 }),
-    ArrowLeft: () => setCPos({ ...cPos, x: cPos.x - 1 }),
+    ArrowUp: () => updateCPos({ ...cPos, y: cPos.y + 1 }),
+    ArrowRight: () => updateCPos({ ...cPos, x: cPos.x + 1 }),
+    ArrowDown: () => updateCPos({ ...cPos, y: cPos.y - 1 }),
+    ArrowLeft: () => updateCPos({ ...cPos, x: cPos.x - 1 }),
   });
 
   return (

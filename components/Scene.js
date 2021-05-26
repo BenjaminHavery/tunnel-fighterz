@@ -20,9 +20,9 @@ const Scene = ({ space, cPos }) => {
       <OrbitControls />
 
 
-      <Player x={cPos.x} y={cPos.y} {...{ cPos }}/>
+      <Player {...{ cPos }}/>
       <Foes {...{ space }}/>
-      <Tunnel x={0} y={0} size={space.size/2} {...{ space }}/>
+      <Tunnel x={0} y={0} {...{ space }}/>
 
       
       
