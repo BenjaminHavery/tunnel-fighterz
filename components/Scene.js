@@ -3,23 +3,16 @@ import { useState } from 'react'
 import Player from './Player'
 import Tunnel from './Tunnel'
 import Foes from './Foes'
+import { useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 
 
-const Scene = ({ space, cPos }) => {
+const Scene = ({ space, game }) => {
 
-  const [deaths, setDeaths] = useState(0);
-
-  const checkCollision = (arg) => {
-    if (arg.x === cPos.x && arg.y === cPos.y) {
-      alert(`GAME OVER. Begin run ${deaths + 1}?`);
-      setDeaths(deaths + 1);
-    }
-  }
+  useFrame(() => game.advance())
 
   return (
     <>
-        
       <ambientLight intensity={0.5} />
       {/* <pointLight intensity={1} position={[0, 0, -space.dis]} /> */}
       <fog attach="fog" args={['#ffffff', space.dis/4, space.dis]} />
@@ -28,12 +21,10 @@ const Scene = ({ space, cPos }) => {
       {/* <OrbitControls /> */}
 
 
-      <Player {...{ cPos }}/>
-      <Foes key={`run--${deaths}`} onDest={(arg) => checkCollision(arg)} {...{ space }}/>
-      <Tunnel x={0} y={0} {...{ space }}/>
+      <Player {...{ game }}/>
+      <Foes {...{ game }} key={`foes--${game.foes.length}`}/>
+      <Tunnel {...{ space }}/>
 
-      
-      
     </>
   )
 }

@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import { useKeyboardActions, useTouchActions } from './util'
+import { useEffect } from 'react'
 
 import { Canvas } from '@react-three/fiber'
+
 import Scene from './Scene'
+import { useGame } from '../data/game'
 
 const space = {
   size: 5,
@@ -15,43 +16,33 @@ space.cMax = (space.size - 1)/2;
 
 const Game = () => {
 
-  const [cPos, setCPos] = useState({ x: 0, y: 0 }),
-        updateCPos = (newPos) => {
-          if (
-            Math.abs(newPos.x) <= space.cMax &&
-            Math.abs(newPos.y) <= space.cMax &&
-            newPos.x + newPos.y !== cPos.x + cPos.y
-          ) setCPos(newPos);
-        };
+  const game = useGame();
 
-  useKeyboardActions({
-    ArrowUp: () => updateCPos({ ...cPos, y: cPos.y + 1 }),
-    ArrowRight: () => updateCPos({ ...cPos, x: cPos.x + 1 }),
-    ArrowDown: () => updateCPos({ ...cPos, y: cPos.y - 1 }),
-    ArrowLeft: () => updateCPos({ ...cPos, x: cPos.x - 1 }),
-  });
-  
-  useTouchActions({
-    SwipeUp: () => updateCPos({ ...cPos, y: cPos.y + 1 }),
-    SwipeRight: () => updateCPos({ ...cPos, x: cPos.x + 1 }),
-    SwipeDown: () => updateCPos({ ...cPos, y: cPos.y - 1 }),
-    SwipeLeft: () => updateCPos({ ...cPos, x: cPos.x - 1 }),
-  });
+  useEffect(() => {
+    game.load({
+      foes: [
+        { y: -1 },
+        {},
+        { x: -1 },
+        { z: -2 },
+      ]
+    })
+  }, [])
+
+  console.log('render game', game);
 
   return (
-    <div className='wrapper'
-    // onTouchMove={(e) => console.log(e)}
-    >
+    <div className='wrapper'>
 
       <Canvas className='canvas' camera={{ position: [0, space.size/4, space.cam]}}>
-        <Scene {...{ space, cPos }}/>
+        <Scene {...{ space, game }}/>
       </Canvas>
       
       <style jsx>{`
         
         .wrapper {
           position: relative;
-          background: lightblue;
+          background: white;
           height: 100vh;
         }
         :global(.canvas) {

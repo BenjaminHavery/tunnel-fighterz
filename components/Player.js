@@ -1,26 +1,14 @@
-import { useEffect, useRef, useMemo, Suspense } from 'react'
+
+import { useRef, Suspense } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
-import * as THREE from 'three';
-// import { lerp } from './util'
 
 
-const Player = ({ cPos }) => {
+const Player = ({ game }) => {
+  
   const player = useRef();
 
-  const { cVec } = useMemo(() => {
-    const cVec = new THREE.Vector3();
-    return { cVec }
-  }, [])
-  
-  useEffect(() => {
-    cVec.setX(cPos.x);
-    cVec.setY(cPos.y);
-  }, [cPos])
-
-  useFrame(() => {
-    player.current.position.lerp(cVec, 0.1);
-  })
+  useFrame(() => player.current.position.copy(game.player.vec))
 
   return (
     <mesh ref={player} position={[0, 0, 0]} rotation={[0, Math.PI, 0]} scale={[2, 2, 2]}>
@@ -50,7 +38,5 @@ const PlayerModel = () => {
     />
   )
 }
-
-
 
 export default Player
