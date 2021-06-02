@@ -34,12 +34,16 @@ const Game = ({ controls, player, level, foes }) => {
       foes.bind(this);
       return this;
     },
-    load(base = {}) {
-      const newLevel = base.level || {},
-            newFoes = base.foes || [];
-      console.log('load game', newLevel, newFoes);
+    // load(base = {}) {
+    //   const newLevel = base.level || {},
+    //         newFoes = base.foes || [];
+    //   console.log('load game', newLevel, newFoes);
+    //   this.level.load(newLevel);
+    //   this.foes.load(newFoes);
+    // },
+    load(newLevel) {
+      console.log('load game', newLevel);
       this.level.load(newLevel);
-      this.foes.load(newFoes);
     },
     advance() {
       this.player.advance(this);

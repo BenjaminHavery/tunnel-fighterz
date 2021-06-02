@@ -54,7 +54,7 @@ const Controls = ({ vec, getPos, setPos }) => {
 
     max: 2,
     setMax(newMax) { this.max = newMax },
-    clamp(val) { return Math.min(Math.max(val, -this.max), this.max) },
+    clamp(val) { return Math.min(Math.max(val, -this.game.level.dim.rad), this.game.level.dim.rad) },
 
     move(movement) {
       const newPos = { ...this.pos, ...movement };

@@ -34,9 +34,25 @@ const Foes = ({ getLength, setLength }) => {
     
     all() { return this.foes },
     
-    load(newFoes) {
+    load(foeMap) {
       this.updateLength(0);
-      this.foes = newFoes.map((foe) => Foe({...foe, z: (foe.z || 0) - this.game.level.dim.dis, game: this.game}));
+      const newFoes = [],
+            dim = this.game.level.dim;
+      
+      foeMap.forEach((layer, iLay) => {
+        const z = -dim.dis - iLay;
+        layer.forEach((foeCode, iFoe) => {
+          const x = (iFoe % dim.siz) - dim.rad,
+                y = -Math.floor((iFoe) / dim.siz) + dim.rad;
+          console.log(x, y, z, foeCode)
+          if (!!foeCode) {
+            newFoes.push(Foe({ x, y, z, game: this.game }))
+          }
+        })
+      })
+
+      // this.foes = newFoes.map((foe) => Foe({...foe, z: (foe.z || 0) - this.game.level.dim.dis, game: this.game}));
+      this.foes = newFoes;
       this.updateLength(this.foes.length);
     },
   } 

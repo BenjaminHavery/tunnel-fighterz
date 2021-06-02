@@ -20,11 +20,42 @@ const Game = () => {
 
   useEffect(() => {
     game.load({
-      foes: [
-        { y: -1 },
-        {},
-        { x: -1 },
-        { z: -2 },
+      foeMap: [
+        [ 0,0,0,
+          1,1,1,
+          0,0,0, ],
+        [],
+        [ 0,0,1,
+          0,1,0,
+          1,0,0, ],
+        [],
+        [ 0,1,0,
+          0,1,0,
+          0,1,0, ],
+        [],
+        [ 1,0,0,
+          0,1,0,
+          0,0,1, ],
+        [],
+        [ 0,0,0,
+          1,1,1,
+          0,0,0, ],
+        [],
+        [ 0,0,1,
+          0,1,0,
+          1,0,0, ],
+        [],
+        [ 0,1,0,
+          0,1,0,
+          0,1,0, ],
+        [],
+        [ 1,0,0,
+          0,1,0,
+          0,0,1, ],
+        [],
+        [ 0,0,0,
+          1,1,1,
+          0,0,0, ],
       ]
     })
   }, [])
@@ -34,7 +65,7 @@ const Game = () => {
   return (
     <div className='wrapper'>
 
-      <Canvas className='canvas' camera={{ position: [0, space.size/4, space.cam]}}>
+      <Canvas className='canvas' camera={{ position: [0, game.level.dim.cam/4, game.level.dim.cam]}}>
         <Scene {...{ space, game }}/>
       </Canvas>
       

@@ -24,13 +24,24 @@ const Level = ({ getNumber, setNumber }) => {
     },
 
     dim: {
-      rad: 2,
-      dis: 50,
-      cam: 5,
+      rad: 1,
+      siz: 3,
+      dis: 30,
+      cam: 3,
+      run: 33,
     },
+
+    foeMap: [],
 
     load(newLevel) {
       this.dim = { ...this.dim, ...newLevel.dim }
+      this.dim.siz = 2*this.dim.rad + 1;
+      this.dim.cam = 2*this.dim.rad + 1;
+      this.dim.run = this.dim.dis + this.dim.cam;
+
+      this.foeMap = [...(newLevel.foeMap || [])];
+      this.game.foes.load(this.foeMap);
+
       this.updateNumber(newLevel.number || this.number + 1);
     }
   } 

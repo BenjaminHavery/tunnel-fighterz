@@ -7,7 +7,7 @@ import { useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 
 
-const Scene = ({ space, game }) => {
+const Scene = ({ game }) => {
 
   useFrame(() => game.advance())
 
@@ -15,7 +15,7 @@ const Scene = ({ space, game }) => {
     <>
       <ambientLight intensity={0.5} />
       {/* <pointLight intensity={1} position={[0, 0, -space.dis]} /> */}
-      <fog attach="fog" args={['#ffffff', space.dis/4, space.dis]} />
+      <fog attach="fog" args={['#ffffff', game.level.dim.dis/4, game.level.dim.dis]} />
       
       {/* <axesHelper args={[1.5, 1.5, 2]} /> */}
       {/* <OrbitControls /> */}
@@ -23,7 +23,7 @@ const Scene = ({ space, game }) => {
 
       <Player {...{ game }}/>
       <Foes {...{ game }} key={`foes--${game.foes.length}`}/>
-      <Tunnel {...{ space }}/>
+      <Tunnel {...{ game }} key={`segs--${game.level.dim.run}`}/>
 
     </>
   )
